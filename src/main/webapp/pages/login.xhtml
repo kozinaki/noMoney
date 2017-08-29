@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title>noMoney</title>
+	</h:head>
+	<h:body>
+		<h2>Enter to our dimension.</h2>
+		<h:form>
+			<p:commandButton value="back" action="#{userController.backFromLogin}" style="width:150px"/>
+		</h:form>
+		<h:form>
+			<p:panelGrid columns="2" columnClasses="label, value" styleClass="borderless">
+				<h:outputText value="login"/>
+				<p:inputText value="#{userController.login}"/>
+				
+				<h:outputText value="password"/>
+				<p:password value="#{userController.password}"/>
+
+				<p:commandButton value="Welcome Me" action="#{userController.logging}" update="loginState"/>
+				<h:outputText id="loginState" value="#{userController.loggingMessage}"/>
+			</p:panelGrid>
+		</h:form>
+	</h:body>
+</html>

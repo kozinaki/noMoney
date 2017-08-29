@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>noMoney</title>
+		<style>
+			.layer1 {
+				float: left;
+				margin-right: 20px;
+			}
+			form * {
+				padding-bottom: 10px;
+			}
+		</style>
+	</h:head>
+	<h:body bgcolor="white">
+		<h2>You've returned #{userController.login}.</h2>
+		<h2>		The only flesh and blood to walk between dimensions. And stuff. No money.</h2>
+		<h:form>
+			<p:commandButton value="logout" action="#{welcomeController.logout}" style="width:150px"/>
+		</h:form>
+		<h:form>
+			<p:panel header="What you want.">
+				<p:panelGrid columns="5">
+					<p:commandButton value="lots" action="#{welcomeController.template('lotForShot', 'lotForShotController')}" 
+										update="template" style="width:150px"/>
+					<p:commandButton value="my lots" action="#{welcomeController.template('myLots', 'listLotController')}"
+										update="template" style="width:150px"/>
+					<p:commandButton value="add lot" action="#{welcomeController.template('addLot', 'lotController')}" 
+										update="template" style="width:150px"/>
+					<p:commandButton value="my items" action="#{welcomeController.template('myItems', 'itemController')}" 
+										update="template" style="width:150px"/>
+					<p:commandButton value="add item" action="#{welcomeController.template('addItem', 'itemController')}" 
+										update="template" style="width:150px"/>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="template">
+			<ui:insert name="content">
+				<ui:include src="#{welcomeController.dynamicTemplate}">
+					<ui:param name="welcomeControllerBean" value="#{welcomeController.controller}"/>
+				</ui:include>
+			</ui:insert>
+		</h:form>
+
+	</h:body>
+</html>

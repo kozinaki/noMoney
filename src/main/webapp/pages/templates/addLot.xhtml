@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<body>
+		<ui:composition>
+			<h:form>
+				<h1>I just wanna put...</h1>
+				<p:panelGrid columns="2">
+					<h:outputText value="Give item"/>
+					<p:selectOneMenu id="items" panelStyle="width:180px"
+							effect="fade" var="i" style="width:160px" filter="true" filterMatchMode="startsWith"
+							valueChangeListener="#{welcomeControllerBean.setGiveItem}" converter="itemConverter">
+						<f:ajax event="change"/>
+						<f:selectItems value="#{welcomeControllerBean.data.entrySet()}" var="giveItem" 
+								itemLabel="#{giveItem.value.name}" itemValue="#{giveItem.value}"/>
+		
+						<!--<p:column style="width:10%">
+							<h:outputText styleClass="ui-theme ui-theme-omega"/>
+						</p:column>-->
+		
+						<p:column>
+							<h:outputText value="#{i.name}"/>
+						</p:column>
+					</p:selectOneMenu>
+
+					<h:outputText value="Give number"/>
+					<p:inputText valueChangeListener="#{welcomeControllerBean.setGiveNumber}">
+						<f:ajax event="change"/>
+					</p:inputText>
+	
+					<h:outputText value="Take number"/>
+					<p:inputText valueChangeListener="#{welcomeControllerBean.setTakeNumber}">
+						<f:ajax event="change"/>
+					</p:inputText>
+	
+					<h:outputText value="Take name"/>
+					<p:inputText valueChangeListener="#{welcomeControllerBean.setTakeName}">
+						<f:ajax event="change"/>
+					</p:inputText>
+	
+					<h:outputText value="Take Description"/>
+					<p:inputTextarea rows="5" cols="30" maxlength="500"
+							valueChangeListener="#{welcomeControllerBean.setTakeDescription}" autoResize="false">
+						<f:ajax event="change"/>
+					</p:inputTextarea>
+
+					<p:commandButton value="save">
+						<f:ajax listener="#{welcomeControllerBean.saveLot}" render="result"/>
+					</p:commandButton>
+					<h:outputText id="result" value="#{welcomeControllerBean.result}"/>
+				</p:panelGrid>
+			</h:form>
+		</ui:composition>
+	</body>
+</html>

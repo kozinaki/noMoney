@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<body>
+		<ui:composition>
+			<h:form id="form">
+				<h1>I just wanna look...</h1>
+
+				<p:dataTable id="lots" value="#{welcomeControllerBean.data}" var="lot" selectionMode="single" 
+						selection="#{welcomeControllerBean.selectedLot}" rowKey="#{lot.id}">
+					<f:facet name="header">
+						Lots
+					</f:facet>
+
+					<p:ajax event="rowSelect" update=":template:form:lotInfo"/>
+					<!--<p:ajax event="rowUnselect" listener="#{welcomeControllerBean.unTest}" update=":template:form:itemInfo"/>-->
+					
+					<p:column headerText="Item">
+						<h:outputText id="itemOutput" value="#{lot.giveItem.name}"/>
+					</p:column>
+
+					<p:column headerText="Name">
+						<h:outputText id="nameOutput" value="#{lot.takeName}"/>
+					</p:column>
+
+					<p:column headerText="Description">
+						<h:outputText id="descriptionOutput" value="#{lot.takeDescription}"/>
+					</p:column>
+
+					<p:column style="width:32px;text-align: center">
+						<p:commandButton icon="fa-arrows-alt">
+							<f:ajax listener="#{welcomeControllerBean.delete(lot)}" 
+								render=":template:form:lots :template:form:lotInfo"/>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:panelGrid id="lotInfo" columns="1">
+					<h:outputText value="#{welcomeControllerBean.selectedLot.takeName}"/>
+					<h:outputText value="#{welcomeControllerBean.selectedLot.takeDescription}"/>
+				</p:panelGrid>
+
+			</h:form>
+		</ui:composition>
+	</body>
+	
+</html>

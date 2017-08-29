@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<body>
+		<ui:composition>
+			<h:form id="form">
+				<h1>I just wanna look...</h1>
+
+				<p:panelGrid id="lotInfo" columns="2">
+					<p:dataTable id="lots" style="width:200px;" value="#{welcomeControllerBean.lotData}" var="lot" selectionMode="single" 
+							selection="#{welcomeControllerBean.selectedLot}" rowKey="#{lot.id}">
+						<f:facet name="header">
+							Lots
+						</f:facet>
+	
+						<p:ajax event="rowSelect" update=":template:form:lotInfo"/>
+						
+						<p:column headerText="Item">
+							<h:outputText id="itemOutput" value="#{lot.giveItem.name}"/>
+						</p:column>
+					</p:dataTable>
+
+					<p:panelGrid columns="2">
+						<h:outputText value="Description give item:"/>
+						<h:outputText value="#{welcomeControllerBean.selectedLot.giveItem.description}"/>
+						<h:outputText value="Count give item:"/>
+						<h:outputText value="#{welcomeControllerBean.selectedLot.giveNumber}"/>
+						<h:outputText value="Count take item:"/>
+						<h:outputText value="#{welcomeControllerBean.selectedLot.takeNumber}"/>
+						<h:outputText value="Name take item"/>
+						<h:outputText value="#{welcomeControllerBean.selectedLot.takeName}"/>
+						<h:outputText value="Description take item"/>
+						<h:outputText value="#{welcomeControllerBean.selectedLot.takeDescription}"/>
+					</p:panelGrid>
+
+					<p:selectOneMenu id="items" panelStyle="width:180px"
+							effect="fade" var="i" style="width:160px" filter="true" filterMatchMode="startsWith"
+							valueChangeListener="#{welcomeControllerBean.setTakeItem}" converter="itemConverter">
+						<f:ajax event="change"/>
+						<f:selectItems value="#{welcomeControllerBean.itemData.entrySet()}" var="takeItem" 
+								itemLabel="#{takeItem.value.name}" itemValue="#{takeItem.value}"/>
+		
+						<p:column>
+							<h:outputText value="#{i.name}"/>
+						</p:column>
+					</p:selectOneMenu>
+					<p></p>
+
+					<p:inputText valueChangeListener="{welcomeControllerBean.setTakeNumber}">
+						<f:ajax event="change"/>
+					</p:inputText>
+					<p></p>
+
+					<p:commandButton value="save">
+						<f:ajax listener="#{welcomeControllerBean.saveItem}" render="result"/>
+					</p:commandButton>
+
+					<h:outputText id="result" value="#{welcomeControllerBean.result}"/>
+				</p:panelGrid>
+			</h:form>
+		</ui:composition>
+	</body>
+
+</html>

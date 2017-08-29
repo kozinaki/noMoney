@@ -1,0 +1,15 @@
+<Context>
+
+    <Resource
+      name="jdbc/auction"
+      type="javax.sql.DataSource"
+      maxActive="20"
+      maxIdle="2"
+      maxWait="5000"
+      JtaManaged="true" 
+      driverClassName="org.postgresql.Driver"
+      username="test"
+      password="test"
+      url="jdbc:postgresql://localhost/auction"/>
+
+</Context>
